@@ -33,7 +33,7 @@ var __publicField = (obj, key, value) => {
   __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
   return value;
 };
-import { defineComponent, toRaw, unref, toRefs, computed, ref, onMounted, onBeforeUnmount, openBlock, createBlock, resolveDynamicComponent, mergeProps, withCtx, createTextVNode, createElementBlock, createElementVNode, normalizeClass, toDisplayString, watch, nextTick, normalizeStyle, createCommentVNode, Fragment, toHandlers, withModifiers, TransitionGroup, renderSlot, reactive, onBeforeMount, renderList, createVNode, createApp, getCurrentInstance, provide, inject } from "vue";
+import { defineComponent, toRaw, unref, toRefs, computed, ref, watch, onMounted, onBeforeUnmount, openBlock, createBlock, resolveDynamicComponent, mergeProps, withCtx, createTextVNode, createElementBlock, createElementVNode, normalizeClass, toDisplayString, nextTick, normalizeStyle, createCommentVNode, Fragment, toHandlers, withModifiers, TransitionGroup, renderSlot, reactive, onBeforeMount, renderList, createVNode, createApp, getCurrentInstance, provide, inject } from "vue";
 var index = "";
 var TYPE;
 (function(TYPE2) {
@@ -228,6 +228,20 @@ const useDraggable = (el, props) => {
   const dragDelta = computed(() => beingDragged.value ? dragPos.value.x - dragStart.value : 0);
   const dragComplete = ref(false);
   const removalDistance = computed(() => isDOMRect(dragRect.value) ? (dragRect.value.right - dragRect.value.left) * draggablePercent.value : 0);
+  watch([el, dragStart, dragPos, dragDelta, removalDistance, beingDragged], () => {
+    if (el.value) {
+      el.value.style.transform = "translateX(0px)";
+      el.value.style.opacity = "1";
+      if (dragStart.value === dragPos.value.x) {
+        el.value.style.transition = "";
+      } else if (beingDragged.value) {
+        el.value.style.transform = `translateX(${dragDelta.value}px)`;
+        el.value.style.opacity = `${1 - Math.abs(dragDelta.value / removalDistance.value)}`;
+      } else {
+        el.value.style.transition = "transform 0.2s, opacity 0.2s";
+      }
+    }
+  });
   const onDragStart = (event) => {
     dragStarted.value = true;
     dragPos.value = { x: getX(event), y: getY(event) };
