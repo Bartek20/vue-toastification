@@ -40,26 +40,26 @@ export const useDraggable = (
   )
 
   // Update style to match drag
-  watch(
-    [el, dragStart, dragPos, dragDelta, removalDistance, beingDragged],
-    () => {
-      /* istanbul ignore else  */
-      if (el.value) {
-        el.value.style.transform = "translateX(0px)"
-        el.value.style.opacity = "1"
-        if (dragStart.value === dragPos.value.x) {
-          el.value.style.transition = ""
-        } else if (beingDragged.value) {
-          el.value.style.transform = `translateX(${dragDelta.value}px)`
-          el.value.style.opacity = `${
-            1 - Math.abs(dragDelta.value / removalDistance.value)
-          }`
-        } else {
-          el.value.style.transition = "transform 0.2s, opacity 0.2s"
-        }
-      }
-    }
-  )
+  // watch(
+  //   [el, dragStart, dragPos, dragDelta, removalDistance, beingDragged],
+  //   () => {
+  //     /* istanbul ignore else  */
+  //     if (el.value) {
+  //       el.value.style.transform = "translateX(0px)"
+  //       el.value.style.opacity = "1"
+  //       if (dragStart.value === dragPos.value.x) {
+  //         el.value.style.transition = ""
+  //       } else if (beingDragged.value) {
+  //         el.value.style.transform = `translateX(${dragDelta.value}px)`
+  //         el.value.style.opacity = `${
+  //           1 - Math.abs(dragDelta.value / removalDistance.value)
+  //         }`
+  //       } else {
+  //         el.value.style.transition = "transform 0.2s, opacity 0.2s"
+  //       }
+  //     }
+  //   }
+  // )
 
   // Define handlers
   const onDragStart = (event: TouchEvent | MouseEvent) => {
