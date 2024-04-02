@@ -34,11 +34,11 @@ withDefaults(defineProps<TransitionProps>(), {
 })
 
 const leave = (el: unknown) => {
-  if (el instanceof HTMLElement) {
-    el.style.left = el.offsetLeft + "px"
-    el.style.top = el.offsetTop + "px"
-    el.style.width = getComputedStyle(el).width
-    el.style.position = "absolute"
-  }
+  // if (el instanceof HTMLElement) {
+  //   el.style.left = el.offsetLeft + "px"
+  //   el.style.top = el.offsetTop + "px"
+  //   el.style.width = getComputedStyle(el).width
+  //   el.style.position = "absolute"
+  // }
 }
 </script>
