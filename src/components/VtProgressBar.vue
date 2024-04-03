@@ -28,6 +28,7 @@ const hasClass = ref(true)
 
 const style = computed(() => {
   return {
+    animationDelay: "250ms",
     animationDuration: `${props.timeout}ms`,
     animationPlayState: props.isRunning ? "running" : "paused",
     opacity: props.hideProgressBar ? 0 : 1,
